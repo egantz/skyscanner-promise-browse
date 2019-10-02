@@ -94,7 +94,7 @@ describe('Skyscanner', () => {
         Places: ['some place'],
       });
 
-      const res = await skyscanner.getLocationCode();
+      const res = await skyscanner.getLocationCode('random');
       assert(stub.calledWith('autosuggest/v1.0/UK/GBP/en-GB/'));
       assert.equal(res, 'some place');
     });
@@ -103,7 +103,7 @@ describe('Skyscanner', () => {
         Places: ['some place'],
       });
 
-      const res = await skyscanner.getLocationCode('', '1', '2', '3');
+      const res = await skyscanner.getLocationCode('random', '1', '2', '3');
       assert(stub.calledWith('autosuggest/v1.0/1/2/3/'));
       assert.equal(res, 'some place');
     });

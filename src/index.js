@@ -19,11 +19,8 @@ const callAPI = async (endpoint, params) => {
   return request(options);
 };
 
-const getLocationCode = async (query, country, currency, locale) => {
-  if (!country) country = 'UK';
-  if (!currency) currency = 'GBP';
-  if (!locale) locale = 'en-GB';
-
+const getLocationCode = async (query, country = 'UK', currency = 'GBP', locale = 'en-GB') => {
+  if (!query) throw new Error('You must specify a query for getLocationCode');
   const locations = await module.exports.callAPI(`autosuggest/v1.0/${country}/${currency}/${locale}/`, { query });
   return locations.Places[0];
 };
@@ -114,43 +111,39 @@ const formatQuotesData = async (quotes, places, carriers, currency, length) => {
 
 const browseRoutes = async (
   originAirport,
-  destinationAirport,
-  outboundDate,
-  returnDate,
-  country,
-  currency,
-  locale) => {
+  destinationAirport = 'anywhere',
+  outboundDate = 'anytime',
+  returnDate = 'anytime',
+  country = 'UK',
+  currency = 'GBP',
+  locale = 'en-UK',
+  length = 9) => {
   if (!originAirport) throw new Error('Origin aiport undefined. Required in browseRoutes');
-  if (!destinationAirport) destinationAirport = 'anywhere';
-  if (!outboundDate) outboundDate = 'anytime';
-  if (!returnDate && returnDate !== '') returnDate = 'anytime';
-  if (!country) country = 'UK';
-  if (!currency) currency = 'GBP';
-  if (!locale) locale = 'en-UK';
 
   const res = await module.exports.callAPI(`browseroutes/v1.0/${country}/${currency}/${locale}/${originAirport}/${destinationAirport}/${outboundDate}/${returnDate}`);
-  const options = await formatRoutesData(res.Routes, res.Places, res.Currencies[0]);
+  const options = await formatRoutesData(res.Routes, res.Places, res.Currencies[0], length);
   return options;
 };
 
 const browseQuotes = async (
   originAirport,
-  destinationAirport,
-  outboundDate,
-  returnDate,
-  country,
-  currency,
-  locale) => {
+  destinationAirport = 'anywhere',
+  outboundDate = 'anytime',
+  returnDate = 'anytime',
+  country = 'UK',
+  currency = 'GBP',
+  locale = 'en-UK',
+  length = 9) => {
   if (!originAirport) throw new Error('Origin aiport undefined. Required in browseQuotes');
-  if (!destinationAirport) destinationAirport = 'anywhere';
-  if (!outboundDate) outboundDate = 'anytime';
-  if (!returnDate && returnDate !== '') returnDate = 'anytime';
-  if (!country) country = 'UK';
-  if (!currency) currency = 'GBP';
-  if (!locale) locale = 'en-UK';
 
   const res = await module.exports.callAPI(`browsequotes/v1.0/${country}/${currency}/${locale}/${originAirport}/${destinationAirport}/${outboundDate}/${returnDate}`);
-  const options = await formatQuotesData(res.Quotes, res.Places, res.Carriers, res.Currencies[0]);
+  const options = await formatQuotesData(
+    res.Quotes,
+    res.Places,
+    res.Carriers,
+    res.Currencies[0],
+    length,
+  );
   return options;
 };
 

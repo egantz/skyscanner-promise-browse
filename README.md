@@ -19,13 +19,14 @@ Takes one required argument `query` which can be any place or address. Also take
 As per [Skyscanner API docs](https://skyscanner.github.io/slate/?_ga=1.104705984.172843296.1446781555#browse-quotes):
 > Retrieve the cheapest quotes from our cache prices.
 
-Takes one required argument `origin` which can be an airport, city or country.Also takes six optional arguments (defaults in brackets):
+Takes one required argument `origin` which can be an airport, city or country.Also takes seven optional arguments (defaults in brackets):
 - destinationAirport ('anywhere')
 - outboundDate ('anytime')
 - returnDate ('anytime')
 - country ('UK')
 - currency ('GBP')
 - locale ('en-UK')
+- maxNumberOfOptions (10)
 
 ## browseRoutes
 As per [Skyscanner API docs](https://skyscanner.github.io/slate/?_ga=1.104705984.172843296.1446781555#browse-routes):
@@ -39,6 +40,8 @@ Also takes six optional arguments (defaults in brackets):
 - country ('UK')
 - currency ('GBP')
 - locale ('en-UK')
+- maxNumberOfOptions (10)
+
 
 
 # Commands
