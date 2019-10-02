@@ -156,9 +156,9 @@ const browseQuotes = async (
 
 module.exports = {
   callAPI,
+  formatQuotesData,
+  formatRoutesData,
+  getLocationCode,
   browseRoutes,
   browseQuotes,
-  getLocationCode,
-  formatRoutesData,
-  formatQuotesData,
 };
