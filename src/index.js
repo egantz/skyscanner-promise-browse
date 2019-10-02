@@ -1,3 +1,5 @@
+require('babel-core/register');
+require('babel-polyfill');
 const request = require('request-promise-native');
 
 const callAPI = async (endpoint, params) => {
